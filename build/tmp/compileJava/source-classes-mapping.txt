@@ -1,0 +1,10 @@
+fr/nilowk/splatoon/test/Test.java
+ fr.nilowk.splatoon.test.Test
+ fr.nilowk.splatoon.test.Test$1
+ fr.nilowk.splatoon.test.Test$2
+fr/nilowk/splatoon/test/Gun.java
+ fr.nilowk.splatoon.test.Gun
+fr/nilowk/splatoon/Main.java
+ fr.nilowk.splatoon.Main
+fr/nilowk/splatoon/test/Rouleau.java
+ fr.nilowk.splatoon.test.Rouleau
