@@ -1,6 +1,9 @@
 message:
   join: "{PLAYER} a rejoint la partie"
   quit: "{PLAYER} a quitter la partie"
+  game-join: "{PLAYER} ragarde désormais la partie"
+  game-quit: "{PLAYER} ne regarde plus la partie"
+  kit-selected: "le kit a été changer avec succès"
   starting: "la partie commence dans {TIME} secondes"
   stop-starting: ""
   start: "la partie commence maintenant"

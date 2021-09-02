@@ -1,12 +1,16 @@
 package fr.nilowk.splatoon.task;
 
-import fr.nilowk.splatoon.Gstate;
+import fr.nilowk.splatoon.utils.Gstate;
+import fr.nilowk.splatoon.utils.Kit;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import fr.nilowk.splatoon.Main;
-
-import java.awt.*;
 
 public class Starting extends BukkitRunnable {
 
@@ -50,9 +54,43 @@ public class Starting extends BukkitRunnable {
         Bukkit.broadcastMessage(config.getString("message.start"));
         Playing playing = new Playing(instance);
         instance.setState(Gstate.PLAYING);
-        instance.getPlayers().forEach(player -> player.setExp(1.0f));
+        instance.getPlayers().forEach(player -> {
+            player.setExp(1.0f);
+            if (instance.getColor(player) == Material.ORANGE_WOOL) {
+                player.teleport(instance.getOrangeSpawn());
+            } else {
+                player.teleport(instance.getBlueSpawn());
+            }
+            giveKit(player);
+        });
         playing.runTaskTimer(instance, 0, 20);
         cancel();
+
+    }
+
+    private void giveKit(Player player) {
+
+        if (instance.getKits().get(player) == Kit.DEFAULT) {
+            ItemStack it = new ItemStack(Material.SNOWBALL, 1);
+            ItemMeta im = it.getItemMeta();
+            im.setDisplayName("§4Liquidateur");
+            it.setItemMeta(im);
+            player.getInventory().setItem(0, it);
+        } else  if (instance.getKits().get(player) == Kit.EXTRACEUR) {
+            ItemStack it = new ItemStack(Material.BOW, 1);
+            ItemMeta im = it.getItemMeta();
+            im.setDisplayName("§4Extraceur");
+            im.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
+            it.setItemMeta(im);
+            player.getInventory().setItem(0, it);
+            player.getInventory().setItem(9, new ItemStack(Material.ARROW));
+        } else {
+            ItemStack it = new ItemStack(Material.WOODEN_HOE, 1);
+            ItemMeta im = it.getItemMeta();
+            im.setDisplayName("§4Rouleau");
+            it.setItemMeta(im);
+            player.getInventory().setItem(0, it);
+        }
 
     }
 

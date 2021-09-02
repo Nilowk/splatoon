@@ -14,6 +14,7 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class Gun implements Listener {
 
@@ -42,6 +43,12 @@ public class Gun implements Listener {
             if (snow.getShooter() instanceof Player) {
 
                 Player player = (Player) snow.getShooter();
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        player.getInventory().setItem(0, new ItemStack(Material.SNOWBALL, 1));
+                    }
+                }.runTaskLater(instance, 10);
                 if (player.getExp() < 0.065f) {
 
                     event.setCancelled(true);
@@ -57,14 +64,6 @@ public class Gun implements Listener {
 
     @EventHandler
     public void onShot(ProjectileHitEvent event) {
-
-        if (event.getHitEntity() != null) {
-
-            Player player = (Player) event.getEntity().getShooter();
-            player.getInventory().setItem(0, new ItemStack(Material.SNOWBALL, 1));
-            return;
-
-        }
 
         if(event.getEntity() instanceof Snowball) {
 
@@ -147,8 +146,6 @@ public class Gun implements Listener {
                     }
 
                 }
-
-                player.getInventory().setItem(0, new ItemStack(Material.SNOWBALL, 1));
 
             }
 

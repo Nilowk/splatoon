@@ -1,4 +1,4 @@
-package fr.nilowk.splatoon;
+package fr.nilowk.splatoon.utils;
 
 public enum Gstate {
 

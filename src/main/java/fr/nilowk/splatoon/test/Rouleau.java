@@ -1,5 +1,6 @@
 package fr.nilowk.splatoon.test;
 
+import fr.nilowk.splatoon.utils.Direction;
 import fr.nilowk.splatoon.Main;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

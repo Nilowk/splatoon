@@ -1,6 +1,6 @@
 package fr.nilowk.splatoon.task;
 
-import fr.nilowk.splatoon.Gstate;
+import fr.nilowk.splatoon.utils.Gstate;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 import fr.nilowk.splatoon.Main;

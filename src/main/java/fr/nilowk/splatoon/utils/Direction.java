@@ -1,4 +1,4 @@
-package fr.nilowk.splatoon.test;
+package fr.nilowk.splatoon.utils;
 
 public enum Direction {
 
