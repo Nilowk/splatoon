@@ -42,6 +42,7 @@ public class StartManager implements Listener {
         if (!instance.isState(Gstate.WAITING) && !instance.isState(Gstate.STARTING)) return;
         player.setGameMode(GameMode.ADVENTURE);
         player.teleport(instance.getSpawn());
+        player.getInventory().clear();
         player.setLevel(0);
         String count = (" (min/max)").replace("min", ""+instance.getPlayers().size()).replace("max", config.getInt("manager.max-size")+"");
         event.setJoinMessage(config.getString("message.join").replace("{PLAYER}", player.getDisplayName()) + count);
@@ -59,7 +60,7 @@ public class StartManager implements Listener {
         it.setItemMeta(im);
 
         player.getInventory().setItem(0, it);
-        setTeamPlayer(player);
+        instance.setTeamPlayer(player);
         instance.getKits().put(player, Kit.DEFAULT);
 
     }
@@ -147,20 +148,6 @@ public class StartManager implements Listener {
                 player.sendMessage(config.getString("message.kit-selected"));
 
             }
-
-        }
-
-    }
-
-    private void setTeamPlayer(Player player) {
-
-        if (instance.getBlue().size() <= instance.getOrange().size()) {
-
-            instance.getBlue().add(player);
-
-        } else {
-
-            instance.getOrange().add(player);
 
         }
 

@@ -1,4 +1,4 @@
-package fr.nilowk.splatoon.test;
+package fr.nilowk.splatoon.weapon;
 
 import fr.nilowk.splatoon.utils.Direction;
 import fr.nilowk.splatoon.Main;

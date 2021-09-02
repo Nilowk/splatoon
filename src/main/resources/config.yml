@@ -7,9 +7,13 @@ message:
   starting: "la partie commence dans {TIME} secondes"
   stop-starting: ""
   start: "la partie commence maintenant"
+  win: "§6l'équipe {TEAM} a gagné !!!"
+  no-match: "§6les deux équipes sont ex-éco"
+  relaunch: "une nouvelle partie recommence dans {TIME} secondes"
 manager:
   min-size: 2
   max-size: 8
   timer:
     starting-time: 15
     playing-time: 300
+    finish-time: 15

@@ -2,9 +2,9 @@ package fr.nilowk.splatoon;
 
 import fr.nilowk.splatoon.listener.GameManager;
 import fr.nilowk.splatoon.listener.StartManager;
-import fr.nilowk.splatoon.test.Gun;
-import fr.nilowk.splatoon.test.Rouleau;
-import fr.nilowk.splatoon.test.Sniper;
+import fr.nilowk.splatoon.weapon.Gun;
+import fr.nilowk.splatoon.weapon.Rouleau;
+import fr.nilowk.splatoon.weapon.Sniper;
 import fr.nilowk.splatoon.utils.Gstate;
 import fr.nilowk.splatoon.utils.Kit;
 import org.bukkit.Location;
@@ -22,7 +22,8 @@ import java.util.Map;
 public class Main extends JavaPlugin {
 
     private List<Player> players = new ArrayList<>();
-    private List<Block> blockToRegen = new ArrayList<>();
+    private List<Block> blockToRegenOrange = new ArrayList<>();
+    private List<Block> blockToRegenBlue = new ArrayList<>();
     private List<Player> blue = new ArrayList<>();
     private List<Player> orange = new ArrayList<>();
     private Map<Player, Kit> kits = new HashMap<>();
@@ -104,9 +105,45 @@ public class Main extends JavaPlugin {
 
     }
 
-    public List<Block> getBlockToRegen() {
+    public List<Block> getBlockToRegenOrange() {
 
-        return this.blockToRegen;
+        return this.blockToRegenOrange;
+
+    }
+
+    public List<Block> getBlockToRegenBlue() {
+
+        return this.blockToRegenBlue;
+
+    }
+
+
+    public void setTeamPlayer(Player player) {
+
+        if (getBlue().size() <= getOrange().size()) {
+
+            getBlue().add(player);
+
+        } else {
+
+            getOrange().add(player);
+
+        }
+
+    }
+
+    public Material getWinner() {
+
+        if (getBlockToRegenBlue().size() < getBlockToRegenOrange().size()) {
+
+            return Material.ORANGE_WOOL;
+
+        } else if (getBlockToRegenBlue().size() > getBlockToRegenOrange().size()) {
+
+            return Material.BLUE_WOOL;
+
+        }
+        return null;
 
     }
 
