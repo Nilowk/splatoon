@@ -48,7 +48,6 @@ public class Gun implements Listener {
                     return;
 
                 }
-                player.setExp(player.getExp() - 0.065f);
 
             }
 
@@ -79,24 +78,29 @@ public class Gun implements Listener {
                 if (block.getType() == Material.CYAN_TERRACOTTA || block.getType() == Material.ORANGE_WOOL && event.getHitBlockFace() == BlockFace.UP) {
 
                     block.setType(Material.ORANGE_WOOL);
+                    player.setExp(player.getExp() - 0.013f);
                     if (block.getRelative(BlockFace.EAST).getType() == Material.CYAN_TERRACOTTA) {
 
                         block.getRelative(BlockFace.EAST).setType(Material.ORANGE_WOOL);
+                        player.setExp(player.getExp() - 0.013f);
 
                     }
                     if (block.getRelative(BlockFace.WEST).getType() == Material.CYAN_TERRACOTTA) {
 
                         block.getRelative(BlockFace.WEST).setType(Material.ORANGE_WOOL);
+                        player.setExp(player.getExp() - 0.013f);
 
                     }
                     if (block.getRelative(BlockFace.SOUTH).getType() == Material.CYAN_TERRACOTTA) {
 
                         block.getRelative(BlockFace.SOUTH).setType(Material.ORANGE_WOOL);
+                        player.setExp(player.getExp() - 0.013f);
 
                     }
                     if (block.getRelative(BlockFace.NORTH).getType() == Material.CYAN_TERRACOTTA) {
 
                         block.getRelative(BlockFace.NORTH).setType(Material.ORANGE_WOOL);
+                        player.setExp(player.getExp() - 0.013f);
 
                     }
 
@@ -108,31 +112,37 @@ public class Gun implements Listener {
                     if (block.getRelative(BlockFace.UP).getType() == Material.CYAN_TERRACOTTA) {
 
                         block.getRelative(BlockFace.UP).setType(Material.ORANGE_WOOL);
+                        player.setExp(player.getExp() - 0.013f);
 
                     }
                     if (block.getRelative(BlockFace.DOWN).getType() == Material.CYAN_TERRACOTTA) {
 
                         block.getRelative(BlockFace.DOWN).setType(Material.ORANGE_WOOL);
+                        player.setExp(player.getExp() - 0.013f);
 
                     }
                     if (block.getRelative(BlockFace.EAST).getType() == Material.CYAN_TERRACOTTA) {
 
                         block.getRelative(BlockFace.EAST).setType(Material.ORANGE_WOOL);
+                        player.setExp(player.getExp() - 0.013f);
 
                     }
                     if (block.getRelative(BlockFace.WEST).getType() == Material.CYAN_TERRACOTTA) {
 
                         block.getRelative(BlockFace.WEST).setType(Material.ORANGE_WOOL);
+                        player.setExp(player.getExp() - 0.013f);
 
                     }
                     if (block.getRelative(BlockFace.SOUTH).getType() == Material.CYAN_TERRACOTTA) {
 
                         block.getRelative(BlockFace.SOUTH).setType(Material.ORANGE_WOOL);
+                        player.setExp(player.getExp() - 0.013f);
 
                     }
                     if (block.getRelative(BlockFace.NORTH).getType() == Material.CYAN_TERRACOTTA) {
 
                         block.getRelative(BlockFace.NORTH).setType(Material.ORANGE_WOOL);
+                        player.setExp(player.getExp() - 0.013f);
 
                     }
 

@@ -120,9 +120,14 @@ public class Rouleau implements Listener {
         if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.WOODEN_HOE) {
 
             Player player = event.getPlayer();
+            if (player.getExp() < 0.082f) {
+
+                player.removePotionEffect(PotionEffectType.SLOW);
+                return;
+
+            }
             player.addPotionEffect(PotionEffectType.SLOW.createEffect(100000, 1));
             setBlocks(player);
-            System.out.println(getDirection(player));
 
         } else {
 
@@ -162,7 +167,10 @@ public class Rouleau implements Listener {
 
         for (Block block : replace) {
 
-            block.setType(Material.ORANGE_WOOL);
+            if (player.getExp() >= 0.016f) {
+                block.setType(Material.ORANGE_WOOL);
+                player.setExp(player.getExp() - 0.016f);
+            }
 
         }
 
