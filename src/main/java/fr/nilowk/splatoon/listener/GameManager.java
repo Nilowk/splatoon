@@ -84,6 +84,29 @@ public class GameManager implements Listener {
     }
 
     @EventHandler
+    public void onMove(PlayerMoveEvent event) {
+
+        if (!instance.isState(Gstate.PLAYING)) return;
+        Player player = event.getPlayer();
+        if (instance.getNoColor().contains(player)) return;
+
+        if (event.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == instance.getOpo(instance.getColor(player))) {
+            instance.getNoColor().add(player);
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != instance.getOpo(instance.getColor(player))) {
+                        instance.getNoColor().remove(player);
+                        cancel();
+                    }
+                    player.setHealth(player.getHealth() - 2.0);
+                }
+            }.runTaskTimer(instance, 0, 10);
+        }
+
+    }
+
+    @EventHandler
     public void playerMove(PlayerMoveEvent event) {
 
         if (!instance.isState(Gstate.PLAYING)) return;
@@ -123,6 +146,7 @@ public class GameManager implements Listener {
                                     player.setExp(event.getPlayer().getExp() + 0.0125f);
 
                                 }
+
 
                             } else {
 
@@ -171,7 +195,11 @@ public class GameManager implements Listener {
         if (!instance.isState(Gstate.PLAYING)) return;
         if (event.getEntityType() == EntityType.PLAYER) {
 
-            event.setCancelled(true);
+            if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK || event.getCause() == EntityDamageEvent.DamageCause.FALL) {
+
+                event.setCancelled(true);
+
+            }
 
         }
 

@@ -14,6 +14,7 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class Gun implements Listener {
@@ -27,13 +28,6 @@ public class Gun implements Listener {
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-
-        event.getPlayer().setLevel(0);
-
-    }
-
-    @EventHandler
     public void onLaunch(ProjectileLaunchEvent event) {
 
         if (event.getEntity() instanceof Snowball) {
@@ -43,12 +37,18 @@ public class Gun implements Listener {
             if (snow.getShooter() instanceof Player) {
 
                 Player player = (Player) snow.getShooter();
+                if (!snow.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("§4Liquidateur")) return;
+
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        player.getInventory().setItem(0, new ItemStack(Material.SNOWBALL, 1));
+                        ItemStack it = new ItemStack(Material.SNOWBALL, 1);
+                        ItemMeta im = it.getItemMeta();
+                        im.setDisplayName("§4Liquidateur");
+                        it.setItemMeta(im);
+                        player.getInventory().setItem(0, it);
                     }
-                }.runTaskLater(instance, 10);
+                }.runTaskLater(instance, 5);
                 if (player.getExp() < 0.065f) {
 
                     event.setCancelled(true);
@@ -71,79 +71,121 @@ public class Gun implements Listener {
 
             if(snow.getShooter() instanceof Player) {
 
+                if (event.getHitEntity() != null) {
+
+                    Player player = (Player) event.getHitEntity();
+                    player.setHealth(player.getHealth() - 4.0);
+                    return;
+
+                }
+
                 Player player = (Player) snow.getShooter();
+                if (!snow.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("§4Liquidateur")) return;
                 Block block = event.getHitBlock();
 
-                if (block.getType() == Material.CYAN_TERRACOTTA || block.getType() == Material.ORANGE_WOOL && event.getHitBlockFace() == BlockFace.UP) {
+                if (block.getType() == Material.CYAN_TERRACOTTA || block.getType() == instance.getOpo(instance.getColor(player))) {
 
-                    block.setType(Material.ORANGE_WOOL);
+                    if (instance.getColor(player) == Material.ORANGE_WOOL) {
+                        if (block.getType() != Material.CYAN_TERRACOTTA) {
+                            instance.getBlockToRegenOrange().add(block);
+                            instance.getBlockToRegenBlue().remove(block);
+                        } else {
+                            instance.getBlockToRegenOrange().add(block);
+                        }
+                    } else {
+                        if (block.getType() != Material.CYAN_TERRACOTTA) {
+                            instance.getBlockToRegenOrange().add(block);
+                            instance.getBlockToRegenBlue().remove(block);
+                        } else {
+                            instance.getBlockToRegenBlue().add(block);
+                        }
+                    }
+                    block.setType(instance.getColor(player));
                     player.setExp(player.getExp() - 0.013f);
-                    if (block.getRelative(BlockFace.EAST).getType() == Material.CYAN_TERRACOTTA) {
 
-                        block.getRelative(BlockFace.EAST).setType(Material.ORANGE_WOOL);
-                        player.setExp(player.getExp() - 0.013f);
+                }
+                if (block.getRelative(BlockFace.EAST).getType() == Material.CYAN_TERRACOTTA || block.getRelative(BlockFace.EAST).getType() == instance.getOpo(instance.getColor(player))) {
 
+                    if (instance.getColor(player) == Material.ORANGE_WOOL) {
+                        if (block.getRelative(BlockFace.EAST).getType() != Material.CYAN_TERRACOTTA) {
+                            instance.getBlockToRegenOrange().add(block.getRelative(BlockFace.EAST));
+                            instance.getBlockToRegenBlue().remove(block.getRelative(BlockFace.EAST));
+                        } else {
+                            instance.getBlockToRegenOrange().add(block.getRelative(BlockFace.EAST));
+                        }
+                    } else {
+                        if (block.getRelative(BlockFace.EAST).getType() != Material.CYAN_TERRACOTTA) {
+                            instance.getBlockToRegenOrange().add(block.getRelative(BlockFace.EAST));
+                            instance.getBlockToRegenBlue().remove(block.getRelative(BlockFace.EAST));
+                        } else {
+                            instance.getBlockToRegenBlue().add(block.getRelative(BlockFace.EAST));
+                        }
                     }
-                    if (block.getRelative(BlockFace.WEST).getType() == Material.CYAN_TERRACOTTA) {
+                    block.getRelative(BlockFace.EAST).setType(instance.getColor(player));
+                    player.setExp(player.getExp() - 0.013f);
 
-                        block.getRelative(BlockFace.WEST).setType(Material.ORANGE_WOOL);
-                        player.setExp(player.getExp() - 0.013f);
+                }
+                if (block.getRelative(BlockFace.WEST).getType() == Material.CYAN_TERRACOTTA || block.getRelative(BlockFace.WEST).getType() == instance.getOpo(instance.getColor(player))) {
 
+                    if (instance.getColor(player) == Material.ORANGE_WOOL) {
+                        if (block.getRelative(BlockFace.WEST).getType() != Material.CYAN_TERRACOTTA) {
+                            instance.getBlockToRegenOrange().add(block.getRelative(BlockFace.WEST));
+                            instance.getBlockToRegenBlue().remove(block.getRelative(BlockFace.WEST));
+                        } else {
+                            instance.getBlockToRegenOrange().add(block.getRelative(BlockFace.WEST));
+                        }
+                    } else {
+                        if (block.getRelative(BlockFace.WEST).getType() != Material.CYAN_TERRACOTTA) {
+                            instance.getBlockToRegenOrange().add(block.getRelative(BlockFace.WEST));
+                            instance.getBlockToRegenBlue().remove(block.getRelative(BlockFace.WEST));
+                        } else {
+                            instance.getBlockToRegenBlue().add(block.getRelative(BlockFace.WEST));
+                        }
                     }
-                    if (block.getRelative(BlockFace.SOUTH).getType() == Material.CYAN_TERRACOTTA) {
+                    block.getRelative(BlockFace.WEST).setType(instance.getColor(player));
+                    player.setExp(player.getExp() - 0.013f);
 
-                        block.getRelative(BlockFace.SOUTH).setType(Material.ORANGE_WOOL);
-                        player.setExp(player.getExp() - 0.013f);
+                }
+                if (block.getRelative(BlockFace.SOUTH).getType() == Material.CYAN_TERRACOTTA || block.getRelative(BlockFace.SOUTH).getType() == instance.getOpo(instance.getColor(player))) {
 
+                    if (instance.getColor(player) == Material.ORANGE_WOOL) {
+                        if (block.getRelative(BlockFace.SOUTH).getType() != Material.CYAN_TERRACOTTA) {
+                            instance.getBlockToRegenOrange().add(block.getRelative(BlockFace.SOUTH));
+                            instance.getBlockToRegenBlue().remove(block.getRelative(BlockFace.SOUTH));
+                        } else {
+                            instance.getBlockToRegenOrange().add(block.getRelative(BlockFace.SOUTH));
+                        }
+                    } else {
+                        if (block.getRelative(BlockFace.SOUTH).getType() != Material.CYAN_TERRACOTTA) {
+                            instance.getBlockToRegenOrange().add(block.getRelative(BlockFace.SOUTH));
+                            instance.getBlockToRegenBlue().remove(block.getRelative(BlockFace.SOUTH));
+                        } else {
+                            instance.getBlockToRegenBlue().add(block.getRelative(BlockFace.SOUTH));
+                        }
                     }
-                    if (block.getRelative(BlockFace.NORTH).getType() == Material.CYAN_TERRACOTTA) {
+                    block.getRelative(BlockFace.SOUTH).setType(instance.getColor(player));
+                    player.setExp(player.getExp() - 0.013f);
 
-                        block.getRelative(BlockFace.NORTH).setType(Material.ORANGE_WOOL);
-                        player.setExp(player.getExp() - 0.013f);
+                }
+                if (block.getRelative(BlockFace.NORTH).getType() == Material.CYAN_TERRACOTTA || block.getRelative(BlockFace.SOUTH).getType() == instance.getOpo(instance.getColor(player))) {
 
+                    if (instance.getColor(player) == Material.ORANGE_WOOL) {
+                        if (block.getRelative(BlockFace.NORTH).getType() != Material.CYAN_TERRACOTTA) {
+                            instance.getBlockToRegenOrange().add(block.getRelative(BlockFace.NORTH));
+                            instance.getBlockToRegenBlue().remove(block.getRelative(BlockFace.NORTH));
+                        } else {
+                            instance.getBlockToRegenOrange().add(block.getRelative(BlockFace.NORTH));
+                        }
+                    } else {
+                        if (block.getRelative(BlockFace.NORTH).getType() != Material.CYAN_TERRACOTTA) {
+                            instance.getBlockToRegenOrange().add(block.getRelative(BlockFace.NORTH));
+                            instance.getBlockToRegenBlue().remove(block.getRelative(BlockFace.NORTH));
+                        } else {
+                            instance.getBlockToRegenBlue().add(block.getRelative(BlockFace.NORTH));
+                        }
                     }
-
-                } else if (block.getType() == Material.CYAN_TERRACOTTA || block.getType() == Material.ORANGE_WOOL) {
-
-
-                    block.setType(Material.ORANGE_WOOL);
-
-                    if (block.getRelative(BlockFace.UP).getType() == Material.CYAN_TERRACOTTA) {
-
-                        block.getRelative(BlockFace.UP).setType(Material.ORANGE_WOOL);
-                        player.setExp(player.getExp() - 0.013f);
-
-                    }
-                    if (block.getRelative(BlockFace.DOWN).getType() == Material.CYAN_TERRACOTTA) {
-
-                        block.getRelative(BlockFace.DOWN).setType(Material.ORANGE_WOOL);
-                        player.setExp(player.getExp() - 0.013f);
-
-                    }
-                    if (block.getRelative(BlockFace.EAST).getType() == Material.CYAN_TERRACOTTA) {
-
-                        block.getRelative(BlockFace.EAST).setType(Material.ORANGE_WOOL);
-                        player.setExp(player.getExp() - 0.013f);
-
-                    }
-                    if (block.getRelative(BlockFace.WEST).getType() == Material.CYAN_TERRACOTTA) {
-
-                        block.getRelative(BlockFace.WEST).setType(Material.ORANGE_WOOL);
-                        player.setExp(player.getExp() - 0.013f);
-
-                    }
-                    if (block.getRelative(BlockFace.SOUTH).getType() == Material.CYAN_TERRACOTTA) {
-
-                        block.getRelative(BlockFace.SOUTH).setType(Material.ORANGE_WOOL);
-                        player.setExp(player.getExp() - 0.013f);
-
-                    }
-                    if (block.getRelative(BlockFace.NORTH).getType() == Material.CYAN_TERRACOTTA) {
-
-                        block.getRelative(BlockFace.NORTH).setType(Material.ORANGE_WOOL);
-                        player.setExp(player.getExp() - 0.013f);
-
-                    }
+                    block.getRelative(BlockFace.NORTH).setType(instance.getColor(player));
+                    player.setExp(player.getExp() - 0.013f);
 
                 }
 

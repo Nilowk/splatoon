@@ -14,7 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Sniper implements Listener {
 
-    private Main instance;
+   /* private Main instance;
 
     public Sniper(Main instance) {
 
@@ -68,5 +68,5 @@ public class Sniper implements Listener {
         }
 
     }
-
+*/
 }

@@ -49,7 +49,7 @@ public class Finish extends BukkitRunnable {
                 player.setLevel(0);
                 instance.getPlayers().add(player);
 
-                if (instance.getPlayers().size() == 2) {
+                if (instance.getPlayers().size() >= 2) {
                     Starting waiting = new Starting(instance);
                     instance.setState(Gstate.STARTING);
                     waiting.runTaskTimer(instance, 0, 20);

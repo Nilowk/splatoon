@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class Rouleau implements Listener {
 
-    private Main instance;
+   /* private Main instance;
     private Map<Direction, int[]> patterns = new HashMap<>();
     private int[][] cor;
 
@@ -208,5 +208,5 @@ public class Rouleau implements Listener {
             return null;
         }
     }
-
+*/
 }
