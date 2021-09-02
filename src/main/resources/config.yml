@@ -1,0 +1,12 @@
+message:
+  join: "{PLAYER} a rejoint la partie"
+  quit: "{PLAYER} a quitter la partie"
+  starting: "la partie commence dans {TIME} secondes"
+  stop-starting: ""
+  start: "la partie commence maintenant"
+manager:
+  min-size: 2
+  max-size: 8
+  timer:
+    starting-time: 15
+    playing-time: 300
