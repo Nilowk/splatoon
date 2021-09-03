@@ -88,7 +88,7 @@ public class Sniper implements Listener {
                     if (event.getHitEntity().getType() != EntityType.PLAYER) return;
                     Player hitPlayer = (Player) event.getHitEntity();
 
-                    hitPlayer.setHealth(0.0);
+                    if (instance.getColor(hitPlayer) == instance.getOpo(instance.getColor((Player) arrow.getShooter()))) hitPlayer.setHealth(0.0);
 
                 }
 

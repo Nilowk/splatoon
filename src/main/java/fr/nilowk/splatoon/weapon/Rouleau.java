@@ -171,7 +171,7 @@ public class Rouleau implements Listener {
 
                 if (block == p.getLocation().getBlock().getRelative(BlockFace.DOWN)) {
 
-                    if (instance.getColor(p) == instance.getOpo(instance.getColor(player)));
+                    if (instance.getColor(p) == instance.getOpo(instance.getColor(player))) p.setHealth(0.0);
 
                 }
 

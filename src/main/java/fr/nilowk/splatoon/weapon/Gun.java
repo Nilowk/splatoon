@@ -84,14 +84,14 @@ public class Gun implements Listener {
 
             if(snow.getShooter() instanceof Player) {
 
+                if (!snow.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("§4Liquidateur")) return;
                 if (event.getHitEntity() != null) {
 
                     Player player = (Player) event.getHitEntity();
-                    player.setHealth(player.getHealth() - 4.0);
+                    if (instance.getColor(player) == instance.getOpo(instance.getColor((Player) snow.getShooter()))) player.setHealth(player.getHealth() - 4.0);
                     return;
 
                 }
-                if (!snow.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("§4Liquidateur")) return;
 
                 Player player = (Player) snow.getShooter();
                 Block hitBlock = event.getHitBlock();
