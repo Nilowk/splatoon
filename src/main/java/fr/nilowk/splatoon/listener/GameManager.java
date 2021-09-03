@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -50,6 +51,24 @@ public class GameManager implements Listener {
         if (!instance.isState(Gstate.PLAYING)) return;
         Player player = event.getPlayer();
         event.setQuitMessage(config.getString("message.game-quit").replace("{PLAYER}", player.getDisplayName()));
+
+    }
+
+    @EventHandler
+    public void onDead(EntityDeathEvent event) {
+
+        if (!instance.isState(Gstate.PLAYING)) return;
+        if (event.getEntity() instanceof Player) {
+
+            Player player = (Player) event.getEntity();
+            player.setHealth(20.0);
+            if (instance.getColor(player) == Material.ORANGE_WOOL) {
+                player.teleport(instance.getOrangeSpawn());
+            } else {
+                player.teleport(instance.getBlueSpawn());
+            }
+
+        }
 
     }
 

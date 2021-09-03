@@ -4,25 +4,26 @@ fr/nilowk/splatoon/task/Starting.java
  fr.nilowk.splatoon.task.Starting
 fr/nilowk/splatoon/utils/Direction.java
  fr.nilowk.splatoon.utils.Direction
-fr/nilowk/splatoon/weapon/Rouleau.java
- fr.nilowk.splatoon.weapon.Rouleau
 fr/nilowk/splatoon/utils/Kit.java
  fr.nilowk.splatoon.utils.Kit
-fr/nilowk/splatoon/listener/StartManager.java
- fr.nilowk.splatoon.listener.StartManager
-fr/nilowk/splatoon/weapon/Sniper.java
- fr.nilowk.splatoon.weapon.Sniper
-fr/nilowk/splatoon/task/Playing.java
- fr.nilowk.splatoon.task.Playing
+fr/nilowk/splatoon/Main.java
+ fr.nilowk.splatoon.Main
+fr/nilowk/splatoon/weapon/Rouleau.java
+ fr.nilowk.splatoon.weapon.Rouleau
 fr/nilowk/splatoon/task/Finish.java
  fr.nilowk.splatoon.task.Finish
 fr/nilowk/splatoon/weapon/Gun.java
  fr.nilowk.splatoon.weapon.Gun
  fr.nilowk.splatoon.weapon.Gun$1
-fr/nilowk/splatoon/Main.java
- fr.nilowk.splatoon.Main
+fr/nilowk/splatoon/weapon/Sniper.java
+ fr.nilowk.splatoon.weapon.Sniper
+ fr.nilowk.splatoon.weapon.Sniper$1
 fr/nilowk/splatoon/listener/GameManager.java
  fr.nilowk.splatoon.listener.GameManager
  fr.nilowk.splatoon.listener.GameManager$1
  fr.nilowk.splatoon.listener.GameManager$2
  fr.nilowk.splatoon.listener.GameManager$3
+fr/nilowk/splatoon/task/Playing.java
+ fr.nilowk.splatoon.task.Playing
+fr/nilowk/splatoon/listener/StartManager.java
+ fr.nilowk.splatoon.listener.StartManager
