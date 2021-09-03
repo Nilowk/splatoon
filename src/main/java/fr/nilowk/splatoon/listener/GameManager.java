@@ -53,7 +53,7 @@ public class GameManager implements Listener {
 
     }
 
-/////////////
+///////////// CALAMAR START
 
     @EventHandler
     public void playerJump(PlayerMoveEvent event) {
@@ -87,10 +87,13 @@ public class GameManager implements Listener {
     public void onMove(PlayerMoveEvent event) {
 
         if (!instance.isState(Gstate.PLAYING)) return;
+
         Player player = event.getPlayer();
+
         if (instance.getNoColor().contains(player)) return;
 
         if (event.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == instance.getOpo(instance.getColor(player))) {
+
             instance.getNoColor().add(player);
             new BukkitRunnable() {
                 @Override
@@ -102,6 +105,7 @@ public class GameManager implements Listener {
                     player.setHealth(player.getHealth() - 2.0);
                 }
             }.runTaskTimer(instance, 0, 10);
+
         }
 
     }
@@ -126,8 +130,7 @@ public class GameManager implements Listener {
 
                 if (!instance.isCalamar(player)) {
 
-                    player.setInvisible(true);
-                    player.setCollidable(false);
+                    setCalamar(player, true);
 
                     new BukkitRunnable() {
 
@@ -157,7 +160,6 @@ public class GameManager implements Listener {
                         }
 
                     }.runTaskTimer(instance, 0, 1);
-                    player.addPotionEffect(PotionEffectType.SPEED.createEffect(100000, 25));
 
                 }
 
@@ -165,9 +167,7 @@ public class GameManager implements Listener {
 
                 if (instance.isCalamar(player)) {
 
-                    player.setInvisible(false);
-                    player.setCollidable(true);
-                    player.removePotionEffect(PotionEffectType.SPEED);
+                    setCalamar(player, false);
 
                 }
 
@@ -179,15 +179,33 @@ public class GameManager implements Listener {
 
             if (instance.isCalamar(player)) {
 
-                player.setInvisible(false);
-                player.setCollidable(true);
-                player.removePotionEffect(PotionEffectType.SPEED);
+                setCalamar(player, false);
 
             }
 
         }
 
     }
+
+    private void setCalamar(Player player, boolean active) {
+
+        if (active) {
+
+            player.setInvisible(true);
+            player.setCollidable(false);
+            player.addPotionEffect(PotionEffectType.SPEED.createEffect(100000, 25));
+
+        } else {
+
+            player.setInvisible(false);
+            player.setCollidable(true);
+            player.removePotionEffect(PotionEffectType.SPEED);
+
+        }
+
+    }
+
+///////// CALAMAR END
 
     @EventHandler
     public void onTakeDamage(EntityDamageEvent event) {

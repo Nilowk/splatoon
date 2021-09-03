@@ -44,9 +44,9 @@ public class StartManager implements Listener {
         player.teleport(instance.getSpawn());
         player.getInventory().clear();
         player.setLevel(0);
+        instance.getPlayers().add(player);
         String count = (" (min/max)").replace("min", ""+instance.getPlayers().size()).replace("max", config.getInt("manager.max-size")+"");
         event.setJoinMessage(config.getString("message.join").replace("{PLAYER}", player.getDisplayName()) + count);
-        instance.getPlayers().add(player);
 
         if (instance.getPlayers().size() == 2) {
             Starting waiting = new Starting(instance);
@@ -70,9 +70,9 @@ public class StartManager implements Listener {
 
         if (!instance.isState(Gstate.WAITING) && !instance.isState(Gstate.STARTING)) return;
         Player player = event.getPlayer();
+        instance.getPlayers().remove(player);
         String count = (" (min/max)").replace("min", ""+instance.getPlayers().size()).replace("max", config.getInt("manager.max-size")+"");
         event.setQuitMessage(config.getString("message.quit").replace("{PLAYER}", player.getDisplayName()) + count);
-        instance.getPlayers().remove(player);
 
     }
 

@@ -91,6 +91,7 @@ public class Finish extends BukkitRunnable {
         instance.getBlockToRegenBlue().clear();
         instance.getBlue().clear();
         instance.getOrange().clear();
+        instance.getNoColor().clear();
         instance.getKits().clear();
 
     }
