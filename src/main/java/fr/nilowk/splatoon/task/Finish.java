@@ -49,12 +49,6 @@ public class Finish extends BukkitRunnable {
                 player.setLevel(0);
                 instance.getPlayers().add(player);
 
-                if (instance.getPlayers().size() >= 2) {
-                    Starting waiting = new Starting(instance);
-                    instance.setState(Gstate.STARTING);
-                    waiting.runTaskTimer(instance, 0, 20);
-                }
-
                 ItemStack it = new ItemStack(Material.NETHER_STAR, 1);
                 ItemMeta im = it.getItemMeta();
                 im.setDisplayName("§2Choisis Ton Kit");
@@ -64,6 +58,12 @@ public class Finish extends BukkitRunnable {
                 instance.setTeamPlayer(player);
                 instance.getKits().put(player, Kit.DEFAULT);
 
+            }
+            if (instance.getPlayers().size() >= 2) {
+                System.out.println("test");
+                Starting starting = new Starting(instance);
+                instance.setState(Gstate.STARTING);
+                starting.runTaskTimer(instance, 0, 20);
             }
             cancel();
 

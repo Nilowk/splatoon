@@ -15,6 +15,6 @@ manager:
   min-size: 2
   max-size: 8
   timer:
-    starting-time: 5
+    starting-time: 15
     playing-time: 45
     finish-time: 5

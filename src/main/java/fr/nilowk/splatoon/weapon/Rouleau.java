@@ -2,6 +2,7 @@ package fr.nilowk.splatoon.weapon;
 
 import fr.nilowk.splatoon.utils.Direction;
 import fr.nilowk.splatoon.Main;
+import fr.nilowk.splatoon.utils.Gstate;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -118,6 +119,7 @@ public class Rouleau implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
 
+        if (!instance.isState(Gstate.PLAYING)) return;
         if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.WOODEN_HOE) {
 
             Player player = event.getPlayer();
@@ -146,8 +148,6 @@ public class Rouleau implements Listener {
 
     private void setBlocks(Player player) {
 
-        List<Block> replace = new ArrayList<>();
-
         for (int i = 0; i < this.cor.length; i++) {
 
             int[] pattern = parse(getDirection(player));
@@ -155,23 +155,35 @@ public class Rouleau implements Listener {
             if (pattern[i] == 1) {
 
                 Block block = player.getLocation().getBlock().getRelative(BlockFace.DOWN).getLocation().add(cor[i][0], 0, cor[i][1]).getBlock();
-
-                if (block.getType() == Material.CYAN_TERRACOTTA) {
-
-                    replace.add(block);
-
-                }
+                setBlockColor(block, player);
 
             }
 
         }
 
-        for (Block block : replace) {
+    }
 
-            if (player.getExp() >= 0.016f) {
-                block.setType(Material.ORANGE_WOOL);
-                player.setExp(player.getExp() - 0.016f);
+    private void setBlockColor(Block block, Player player) {
+
+        if (player.getExp() >= 0.016f) {
+
+            if (instance.getColor(player) == Material.ORANGE_WOOL) {
+                if (block.getType() != Material.CYAN_TERRACOTTA) {
+                    instance.getBlockToRegenOrange().add(block);
+                    instance.getBlockToRegenBlue().remove(block);
+                } else {
+                    instance.getBlockToRegenOrange().add(block);
+                }
+            } else {
+                if (block.getType() != Material.CYAN_TERRACOTTA) {
+                    instance.getBlockToRegenOrange().add(block);
+                    instance.getBlockToRegenBlue().remove(block);
+                } else {
+                    instance.getBlockToRegenBlue().add(block);
+                }
             }
+            block.setType(instance.getColor(player));
+            player.setExp(player.getExp() - 0.016f);
 
         }
 
@@ -182,10 +194,6 @@ public class Rouleau implements Listener {
         if (rot < 0) {
             rot += 360.0;
         }
-        return getCardinalDirection(rot);
-    }
-
-    private Direction getCardinalDirection(double rot) {
         if (0 <= rot && rot < 22.5) {
             return Direction.WEST;
         } else if (22.5 <= rot && rot < 67.5) {

@@ -49,9 +49,9 @@ public class StartManager implements Listener {
         event.setJoinMessage(config.getString("message.join").replace("{PLAYER}", player.getDisplayName()) + count);
 
         if (instance.getPlayers().size() == 2) {
-            Starting waiting = new Starting(instance);
+            Starting starting = new Starting(instance);
             instance.setState(Gstate.STARTING);
-            waiting.runTaskTimer(instance, 0, 20);
+            starting.runTaskTimer(instance, 0, 20);
         }
 
         ItemStack it = new ItemStack(Material.NETHER_STAR, 1);
@@ -109,13 +109,13 @@ public class StartManager implements Listener {
                 ItemStack sn = new ItemStack(Material.BOW, 1);
                 ItemMeta snm = de.getItemMeta();
                 snm.setDisplayName("Extraceur");
-                if (instance.getKits().get(player) == Kit.DEFAULT) snm.addEnchant(Enchantment.DURABILITY, 1, true);
+                if (instance.getKits().get(player) == Kit.ROULEAU) snm.addEnchant(Enchantment.DURABILITY, 1, true);
                 sn.setItemMeta(snm);
 
                 ItemStack ro = new ItemStack(Material.WOODEN_HOE, 1);
                 ItemMeta rom = de.getItemMeta();
                 rom.setDisplayName("Rouleau");
-                if (instance.getKits().get(player) == Kit.DEFAULT) rom.addEnchant(Enchantment.DURABILITY, 1, true);
+                if (instance.getKits().get(player) == Kit.EXTRACEUR) rom.addEnchant(Enchantment.DURABILITY, 1, true);
                 ro.setItemMeta(rom);
 
                 inv.setItem(2, de);

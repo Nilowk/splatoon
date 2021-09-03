@@ -1,20 +1,23 @@
 package fr.nilowk.splatoon.weapon;
 
 import fr.nilowk.splatoon.Main;
+import fr.nilowk.splatoon.utils.Gstate;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class Sniper implements Listener {
 
-   /* private Main instance;
+    private Main instance;
 
     public Sniper(Main instance) {
 
@@ -25,6 +28,7 @@ public class Sniper implements Listener {
     @EventHandler
     public void chargeBow(EntityShootBowEvent event) {
 
+        if (!instance.isState(Gstate.PLAYING)) return;
         if (event.getEntityType() == EntityType.PLAYER) {
 
             Player player = (Player) event.getEntity();
@@ -68,5 +72,30 @@ public class Sniper implements Listener {
         }
 
     }
-*/
+
+    @EventHandler
+    public void onHit(ProjectileHitEvent event) {
+
+        if (!instance.isState(Gstate.PLAYING)) return;
+        if (event.getEntity() instanceof Arrow) {
+
+            Arrow arrow = (Arrow) event.getEntity();
+
+            if (arrow.getShooter() instanceof Player) {
+
+                if (event.getHitEntity() != null) {
+
+                    if (event.getHitEntity().getType() != EntityType.PLAYER) return;
+                    Player hitPlayer = (Player) event.getHitEntity();
+
+                    hitPlayer.setHealth(0.0);
+
+                }
+
+            }
+
+        }
+
+    }
+
 }
