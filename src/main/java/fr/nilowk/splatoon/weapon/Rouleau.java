@@ -167,6 +167,16 @@ public class Rouleau implements Listener {
 
         if (player.getExp() >= 0.016f) {
 
+            for (Player p : instance.getPlayers()) {
+
+                if (block == p.getLocation().getBlock().getRelative(BlockFace.DOWN)) {
+
+                    if (instance.getColor(p) == instance.getOpo(instance.getColor(player)));
+
+                }
+
+            }
+
             if (instance.getColor(player) == Material.ORANGE_WOOL) {
                 if (block.getType() != Material.CYAN_TERRACOTTA) {
                     instance.getBlockToRegenOrange().add(block);
